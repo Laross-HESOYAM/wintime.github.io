@@ -127,10 +127,14 @@ const Cards_Stanki = ({
             return (
               <div
                 onClick={(e) => {
-                  getReasonsDowntime(localStorage.access, el.slug)
                   setElemStanok(el.id)
                   linkStanok(e.target.id)
-                  el.user_bind ? setTaskBTN(true) : setTaskBTN(false)
+                  if (el.user_bind) {
+                    setTaskBTN(true)
+                    getReasonsDowntime(localStorage.access, el.slug)
+                  } else {
+                    setTaskBTN(false)
+                  }
                 }}
                 className={`${s.cardSt} ${
                   el.user_bind ? s.cardWork : s.cardNoWork

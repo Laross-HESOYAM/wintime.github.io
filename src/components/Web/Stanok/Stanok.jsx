@@ -33,7 +33,7 @@ const Stanok = ({
   const navigate = useNavigate()
   const [current, setCurrent] = useState('')
   const [defective, setDefective] = useState(0)
-  console.log(downtime)
+  // console.log(downtime)
   console.log(plain, 'PLAIN')
   // console.log(taskBTN, "task");
   // console.log(cont, "cont");
@@ -139,7 +139,7 @@ const Stanok = ({
     const url = `http://192.168.1.109:8000/tablet/machine/${
       arrMachines.filter((el) => el.id === elemStanok)[0].slug
     }/idle`
-    console.log(url)
+    // console.log(url)
     const tokens = JSON.stringify(localStorage.access)
     const work = JSON.stringify({
       code: id,
@@ -159,7 +159,7 @@ const Stanok = ({
         navigate('/')
       }
       if (response.status === 200 || response.status === 201) {
-        console.log(response)
+        // console.log(response)
         getReasonsDowntime(
           localStorage.access,
           arrMachines.filter((el) => el.id === elemStanok)[0].slug
@@ -523,22 +523,28 @@ const Stanok = ({
                 return (
                   <Button
                     disabled={
-                      plain === el.name || plain === null || plain === undefined
+                      plain === el.name ||
+                      plain === null ||
+                      plain === undefined ||
+                      arrMachines.filter((el) => el.id === elemStanok)[0]
+                        .user_bind
                         ? false
                         : true
                     }
                     key={i}
-                    onClick={(e) =>
-                      newReasonDowntime(plain ? null : e.target.id)
-                    }
                     id={el.code}
+                    onClick={(e) => {
+                      console.log(plain, 'plain')
+                      console.log(e.target.id, 'id')
+                      newReasonDowntime(plain ? null : e.target.id)
+                    }}
                     className={s.dvFl}
                     style={{
                       background:
                         plain === el.name ? 'lightgreen' : 'transparent',
                     }}
                   >
-                    <span className="fontSt_six" id="1">
+                    <span className="fontSt_six" id={el.code}>
                       {el.name}
                     </span>
                   </Button>
