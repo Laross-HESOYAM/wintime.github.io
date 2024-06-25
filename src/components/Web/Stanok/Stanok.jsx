@@ -34,6 +34,7 @@ const Stanok = ({
   const [current, setCurrent] = useState('')
   const [defective, setDefective] = useState(0)
   console.log(downtime)
+  console.log(plain, 'PLAIN')
   // console.log(taskBTN, "task");
   // console.log(cont, "cont");
   // console.log(arrMachines);
@@ -543,96 +544,6 @@ const Stanok = ({
                   </Button>
                 )
               })}
-              {/* <Button
-                disabled={
-                  plain === 'Переналадка' ||
-                  plain === null ||
-                  plain === undefined
-                    ? false
-                    : true
-                }
-                onClick={(e) => newReasonDowntime(plain ? null : e.target.id)}
-                id="1"
-                className={s.dvFl}
-                style={{
-                  background:
-                    plain === 'Переналадка' ? 'lightgreen' : 'transparent',
-                }}
-              >
-                <span className="fontSt_six" id="1">
-                  Переналадка
-                </span>
-              </Button>
-              <Button
-                id="2"
-                className={s.dvFl}
-                style={{
-                  background:
-                    plain === 'Ремонт станка' ? 'lightgreen' : 'transparent',
-                }}
-                onClick={(e) => {
-                  setDisBtn('Ремонт станка')
-                  newReasonDowntime(plain ? null : e.target.id)
-                }}
-              >
-                <span className="fontSt_six" id="2">
-                  Ремонт станка
-                </span>
-              </Button>
-              <Button
-                onClick={(e) => newReasonDowntime(plain ? null : e.target.id)}
-                id="3"
-                className={s.dvFl}
-                style={{
-                  background:
-                    plain === 'Ремонт оснастки' ? 'lightgreen' : 'transparent',
-                }}
-              >
-                <span className="fontSt_six" id="3">
-                  Ремонт оснастки
-                </span>
-              </Button>
-              <Button
-                onClick={(e) => newReasonDowntime(plain ? null : e.target.id)}
-                id="4"
-                className={s.dvFl}
-                style={{
-                  background:
-                    plain === 'Нет оснастки' ? 'lightgreen' : 'transparent',
-                }}
-              >
-                <span className="fontSt_six" id="4">
-                  Нет оснастки
-                </span>
-              </Button>
-              <Button
-                onClick={(e) => newReasonDowntime(plain ? null : e.target.id)}
-                id="5"
-                className={s.dvFl}
-                style={{
-                  background:
-                    plain === 'Нет инструмента' ? 'lightgreen' : 'transparent',
-                }}
-              >
-                <span className="fontSt_six" id="5">
-                  Нет инструмента
-                </span>
-              </Button>
-              <Button
-                onClick={(e) => newReasonDowntime(plain ? null : e.target.id)}
-                id="6"
-                className={s.dvFl}
-                style={{
-                  background:
-                    plain === 'Поломка инструмента'
-                      ? 'lightgreen'
-                      : 'transparent',
-                }}
-              >
-                <span className="fontSt_six" id="6">
-                  Поломка инструмента
-                </span>
-              </Button> */}
             </div>
           </div>
         </div>

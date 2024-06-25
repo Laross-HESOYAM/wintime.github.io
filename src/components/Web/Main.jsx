@@ -72,8 +72,6 @@ const Main = () => {
   const getReasonsDowntime = async (tok, slug) => {
     // console.log(slug)
     const url = `http://192.168.1.109:8000/machine/${slug}/online`
-    // 192.168.1.109:8000/tablet/machine/usr-424/idles
-    // console.log(url);
     const tokens = JSON.stringify(tok)
     try {
       const response = await fetch(url, {
@@ -197,6 +195,7 @@ const Main = () => {
           setOpenStanok={setOpenStanok}
           setElemStanok={setElemStanok}
           setTaskBTN={setTaskBTN}
+          getReasonsDowntime={getReasonsDowntime}
         />
       )}
       {openStanok && (

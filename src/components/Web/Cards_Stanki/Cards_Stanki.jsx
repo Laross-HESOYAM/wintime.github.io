@@ -13,6 +13,7 @@ const Cards_Stanki = ({
   setOpenStanok,
   setElemStanok,
   setTaskBTN,
+  getReasonsDowntime,
 }) => {
   const [selectArr, setSelectArr] = useState(arrMachines)
   const onChange = (value) => {
@@ -126,6 +127,7 @@ const Cards_Stanki = ({
             return (
               <div
                 onClick={(e) => {
+                  getReasonsDowntime(localStorage.access, el.slug)
                   setElemStanok(el.id)
                   linkStanok(e.target.id)
                   el.user_bind ? setTaskBTN(true) : setTaskBTN(false)
