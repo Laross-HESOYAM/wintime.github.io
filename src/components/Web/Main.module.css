@@ -1,0 +1,53 @@
+.mainHead {
+  background: rgb(17, 25, 58);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 17px 10px 35px;
+}
+
+.mainDiv {
+  width: 1280px;
+}
+
+.mHead1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 626px;
+}
+
+.btnLog {
+  width: 262px;
+  height: 40px;
+  box-sizing: border-box;
+  /* control-secondary/bg-border */
+  border: 1.5px solid rgb(0, 120, 210);
+  border-radius: 6px;
+
+  background: rgb(255, 255, 255);
+  color: #0078d2;
+  font-size: 18px;
+  /* text-align: left; */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.headAva {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.bord {
+  width: 1px;
+  height: 40px;
+  /* Light/Divider/Primary/40 */
+  background: rgb(187, 198, 207);
+}
+
+.logOut_btn {
+  color: white;
+}

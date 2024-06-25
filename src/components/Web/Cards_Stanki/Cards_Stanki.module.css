@@ -1,0 +1,150 @@
+.cardSt {
+  width: 316px !important;
+  height: 576px;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px 28px 20px 28px;
+  box-sizing: border-box;
+
+  border-radius: 10px;
+  /* 1 */
+  box-shadow: 0px 4px 16px 0px rgba(0, 32, 51, 0.18),
+    0px 2px 2px 0px rgba(0, 32, 51, 0.04);
+  /* bg/default */
+  background: rgb(255, 255, 255);
+}
+
+.cardNoWork {
+  border-left: 12px solid rgb(85, 107, 47);
+  border-top: 1px solid rgb(85, 107, 47);
+  border-bottom: 1px solid rgb(85, 107, 47);
+  border-right: 1px solid rgb(85, 107, 47);
+}
+
+.cardWork {
+  border-left: 12px solid rgb(50, 205, 50);
+  border-top: 1px solid rgb(50, 205, 50);
+  border-bottom: 1px solid rgb(50, 205, 50);
+  border-right: 1px solid rgb(50, 205, 50);
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: rgb(1, 126, 250) !important;
+}
+
+.slider_container {
+  min-height: 0;
+  min-width: 0;
+  padding: 0 3rem;
+  /* padding: 5rem; */
+}
+
+.choceCard {
+  height: auto;
+  min-height: 112px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+}
+
+.regCard {
+  width: 198px;
+  height: 48px;
+  box-sizing: border-box;
+  /* control-default/bg-border */
+  border: 1.5px solid rgba(0, 66, 105, 0.28);
+  border-radius: 6px;
+
+  /* control-default/bg */
+  background: rgb(255, 255, 255);
+}
+
+.stCard {
+  width: auto;
+  min-width: 200px;
+  height: 48px;
+  box-sizing: border-box;
+  /* control-default/bg-border */
+  border: 1.5px solid rgba(0, 66, 105, 0.28);
+  border-radius: 6px;
+
+  /* control-default/bg */
+  background: rgb(255, 255, 255);
+}
+
+.btnProg {
+  width: 265px;
+  height: 48px;
+  box-sizing: border-box;
+  border: 1.5px solid rgb(224, 224, 224);
+  border-radius: 6px;
+
+  background: rgb(242, 242, 242);
+}
+
+.messBtn {
+  width: 48px !important;
+  height: 48px !important;
+  box-sizing: border-box;
+  /* control-secondary/bg-border */
+  border: 1.5px solid rgb(0, 120, 210);
+  border-radius: 6px;
+}
+
+.ch1_1,
+.ch1_2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 32px;
+  row-gap: 2rem;
+}
+
+.btnCardSt {
+  width: 260px;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px 8px 24px;
+  border-radius: 4px;
+  /* control-primary/bg */
+
+}
+
+.btnCardSt_back_off {
+  background: rgb(0, 120, 210);
+}
+
+.btnCardSt_back_on {
+  background: transparent;
+  color: rgb(0, 120, 210);
+}
+
+.crSt_1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 16px;
+}
+
+.crMin1 {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.colorWork {
+  color: rgb(50, 205, 50);
+}
+
+
+/* loading */

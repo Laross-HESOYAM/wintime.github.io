@@ -1,0 +1,14 @@
+<svg width="72.000000" height="72.000000" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip1478_38865">
+			<rect id="bx:qr" width="72.000000" height="72.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<rect id="bx:qr" width="72.000000" height="72.000000" fill="#FFFFFF" fill-opacity="0"/>
+	<g clip-path="url(#clip1478_38865)">
+		<path id="Vector" d="M9 33L33 33L33 9L9 9L9 33ZM15 15L27 15L27 27L15 27L15 15ZM9 63L33 63L33 39L9 39L9 63ZM15 45L27 45L27 57L15 57L15 45ZM39 9L39 33L63 33L63 9L39 9ZM57 27L45 27L45 15L57 15L57 27ZM39.03 39L45.03 39L45.03 45L39.03 45L39.03 39ZM45.03 45L51.03 45L51.03 51L45.03 51L45.03 45ZM39.03 51L45.03 51L45.03 57L39.03 57L39.03 51ZM51.03 51L57.03 51L57.03 57L51.03 57L51.03 51ZM57.03 57L63.03 57L63.03 63L57.03 63L57.03 57ZM45.03 57L51.03 57L51.03 63L45.03 63L45.03 57ZM51.03 39L57.03 39L57.03 45L51.03 45L51.03 39ZM57.03 45L63.03 45L63.03 51L57.03 51L57.03 45Z" fill="#0078D2" fill-opacity="1.000000" fill-rule="nonzero"/>
+	</g>
+</svg>
