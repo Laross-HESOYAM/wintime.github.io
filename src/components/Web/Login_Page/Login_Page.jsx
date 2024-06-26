@@ -7,8 +7,8 @@ const Login_Page = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState()
   const [pass, setPass] = useState()
+  const [error, setError] = useState(false)
   const formRef = useRef(null)
-
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -18,18 +18,19 @@ const Login_Page = () => {
         method: 'POST',
         body: formData,
       })
-
-      if (!response.ok) {
-        throw new Error('Сетевой запрос не удался')
-      }
+      console.log(response.status)
       if (response.ok) {
         const result = await response.json()
-        // console.log('Успех:', result.access_token)
-        // console.log(result)
+        console.log(result)
         localStorage.setItem('access', result.access_token)
         localStorage.setItem('user', user)
-        // console.log(localStorage)
         navigate('/main')
+      }
+      if (response.status === 401) {
+        setError(true)
+        setUser()
+        setPass()
+        console.log('error', response.status)
       }
     } catch (error) {
       console.error('Ошибка:', error)
@@ -56,6 +57,7 @@ const Login_Page = () => {
                   prefix={<UserOutlined />}
                   placeholder="Имя пользователя"
                   className={s.inUser}
+                  onFocus={() => setError(false)}
                 />
                 <span className="fontSt_One24grey">Пароль:</span>
                 <Input.Password
@@ -66,8 +68,12 @@ const Login_Page = () => {
                   className={s.inPass}
                   value={pass}
                   onChange={(e) => setPass(e.target.value)}
+                  onFocus={() => setError(false)}
                   required
                 />
+                <div className={s.warningDiv}>
+                  {error && <span>Внимание: неверный логин или пароль!</span>}
+                </div>
                 <button type="submit" className={s.submitBtn}>
                   Войти
                 </button>
