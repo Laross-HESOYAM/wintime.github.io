@@ -29,8 +29,8 @@ const Cards_Stanki = ({
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
   const settings = {
     className: 'center',
-    centerMode: true,
-    // infinite: false,
+    // centerMode: true,
+    infinite: false,
     centerPadding: '60px',
     speed: 500,
     slidesToShow: 3,

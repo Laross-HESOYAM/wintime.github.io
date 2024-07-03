@@ -46,9 +46,9 @@
   height: auto;
   min-height: 112px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: 32px;
+  padding: 35px;
   flex-wrap: wrap;
   row-gap: 1rem;
 }

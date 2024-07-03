@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { HashRouter, BrowserRouter, Route, Routes } from 'react-router-dom'
 import Main from '../Web/Main'
-import Stanok from '../Web/Stanok/Stanok'
 import Login_Page from '../Web/Login_Page/Login_Page'
 import { AuthProvider } from '../../context/AuthProvider'
 const Router = () => {

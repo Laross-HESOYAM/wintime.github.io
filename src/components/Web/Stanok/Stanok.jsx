@@ -208,36 +208,6 @@ const Stanok = ({
         console.error('Ошибка:', error)
       }
     }
-    // // получения причин простоя
-    // const getDowntime = async (tok, slug) => {
-    //   // console.log(slug)
-    //   const url = `http://192.168.1.109:8000/tablet/machine/${slug}/idles`
-    //   // console.log(url)
-    //   const tokens = JSON.stringify(tok)
-    //   try {
-    //     const response = await fetch(url, {
-    //       method: 'GET',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         Authorization: `Bearer ${tokens.replace(/"/g, '')}`,
-    //       },
-    //     })
-    //     // console.log(response)
-    //     if (response.status === 404) {
-    //       // setTaskBTN(false);
-    //     }
-    //     if (response.status === 401) {
-    //       navigate('/')
-    //     }
-    //     if (response.status === 200 || response.status === 201) {
-    //       const data = await response.json()
-    //       setDowntime([...data.idles])
-    //       console.log(data)
-    //     }
-    //   } catch (error) {
-    //     console.error('Ошибка:', error)
-    //   }
-    // }
 
     if (arrMachines.filter((el) => el.id === elemStanok)[0].user_bind) {
       getWork(
@@ -261,7 +231,6 @@ const Stanok = ({
             Назад
           </Button>
         </Link>
-        {/* <Button icon={<MessageOutlined />}></Button> */}
       </div>
       <div className={s.wrapMain}>
         <div className={s.cardStMain}>

@@ -7,7 +7,7 @@
   padding: 0;
   border: none;
   user-select: none;
-  font-family: "Times New Roman", Times, serif;
+  font-family: sans-serif;
 }
 
 body {
@@ -15,7 +15,7 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   margin: 0;
-  font-family: "Times New Roman", Times, serif;
+  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   max-width: 100%;
@@ -24,7 +24,7 @@ body {
 
 .fontSt_One {
   color: rgb(0, 32, 51);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 24px;
   font-weight: 600;
   line-height: 25.64px;
@@ -34,7 +34,7 @@ body {
 
 .fontSt_One1 {
   color: rgb(0, 120, 210);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 24px;
   font-weight: 700;
   line-height: 60px;
@@ -44,7 +44,7 @@ body {
 
 .fontSt_One24grey {
   color: rgba(0, 32, 51, 0.6);
-  font-family: Inter;
+  font-family: sans-serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 150%;
@@ -54,7 +54,7 @@ body {
 
 .fontSt_One2 {
   color: rgb(255, 255, 255);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 24px;
   font-weight: 500;
   line-height: 150%;
@@ -64,7 +64,7 @@ body {
 
 .fontSt_Two {
   color: rgb(85, 107, 47);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -74,7 +74,7 @@ body {
 
 .fontSt_three {
   color: rgba(0, 32, 51, 0.6);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -84,7 +84,7 @@ body {
 
 .fontSt_three2 {
   color: rgb(0, 32, 51);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -94,7 +94,7 @@ body {
 
 .fontSt_three2 {
   color: rgb(0, 32, 51);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
@@ -104,7 +104,7 @@ body {
 
 .fontSt_foure {
   color: rgb(0, 0, 0);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 28px;
   font-weight: 600;
   line-height: 34px;
@@ -114,7 +114,7 @@ body {
 
 .fontSt_36 {
   color: rgb(0, 0, 0);
-  font-family: Inter;
+  font-family: sans-serif;
   font-size: 36px;
   font-weight: 600;
   line-height: 64px;
@@ -124,7 +124,7 @@ body {
 
 .fontSt_32 {
   color: rgba(0, 32, 51, 0.6);
-  font-family: Inter;
+  font-family: sans-serif;
   font-size: 32px;
   font-weight: 400;
   line-height: 150%;
@@ -134,7 +134,7 @@ body {
 
 .fontSt_32b {
   color: rgb(0, 0, 0);
-  font-family: Inter;
+  font-family: sans-serif;
   font-size: 32px;
   font-weight: 500;
   line-height: 150%;
@@ -144,7 +144,7 @@ body {
 
 .fontSt_six {
   color: rgb(0, 32, 51);
-  font-family: inherit;
+  font-family: sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 19px;
@@ -154,7 +154,7 @@ body {
 
 .fontSt_seven {
   color: rgb(0, 0, 0);
-  font-family: Inter;
+  font-family: sans-serif;
   font-size: 27px;
   font-weight: 600;
   line-height: 48px;
@@ -162,6 +162,7 @@ body {
   text-align: left;
 }
 
+/* SLICK */
 .slick-prev:before,
 .slick-next:before {
   color: rgb(1, 126, 250) !important;
@@ -179,11 +180,9 @@ body {
   top: 0;
   right: 0;
   pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgb(255, 255, 255) 25.45%,
-    rgba(255, 255, 255, 0.35) 99.232%
-  );
+  background: linear-gradient(90deg,
+      rgb(255, 255, 255) 25.45%,
+      rgba(255, 255, 255, 0.35) 99.232%);
   width: 70px;
   height: 100%;
   transform: rotate(180deg);
@@ -194,14 +193,10 @@ body {
   position: absolute;
   z-index: 1;
   top: 0;
-  left: 0;
+  left: -10px;
   pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgb(255, 255, 255) 25.45%,
-    rgba(255, 255, 255, 0.35) 99.232%
-  );
-  width: 70px;
+  background: linear-gradient(90deg, rgb(255, 255, 255) 25.45%, rgba(255, 255, 255, 0.35) 99.232%);
+  width: 30px;
   height: 100%;
 }
 
@@ -214,8 +209,15 @@ body {
   left: -35px !important;
 }
 
-:where(.css-dev-only-do-not-override-kghr11).ant-input-affix-wrapper
-  .ant-input-prefix {
+.slick-disabled {
+  display: none !important;
+}
+
+
+
+
+
+:where(.css-dev-only-do-not-override-kghr11).ant-input-affix-wrapper .ant-input-prefix {
   margin-inline-end: 20px;
 }
 
@@ -268,4 +270,32 @@ input:-webkit-autofill::first-line {
 
 :where(.modalTask2).ant-modal .ant-modal-close {
   display: none;
+}
+
+button:disabled {
+  /* background: red !important; */
+  border: 1px solid red !important;
+  color: red;
+}
+
+#qr-shaded-region {
+  border-width: 50px !important;
+}
+
+#qrCodeContainer {
+  position: relative;
+  width: 340px;
+  height: 320px;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto !important;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
 }

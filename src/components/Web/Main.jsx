@@ -22,6 +22,7 @@ const Main = () => {
   const [plain, setPlain] = useState()
   const [disBtn, setDisBtn] = useState('all')
   const [downtime, setDowntime] = useState()
+  console.log(localStorage)
   const occupy_freeMachine = (text, slug) => {
     // console.log(text, slug);
     if (text === 'Занять станок') {
