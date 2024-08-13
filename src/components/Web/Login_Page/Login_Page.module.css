@@ -15,8 +15,8 @@
 }
 
 .cont {
-    width: 1279px;
-    height: 740px;
+    width: 100%;
+    min-height: 740px;
     background: rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: center;

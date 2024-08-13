@@ -22,9 +22,7 @@ const Main = () => {
   const [plain, setPlain] = useState()
   const [disBtn, setDisBtn] = useState('all')
   const [downtime, setDowntime] = useState()
-  console.log(localStorage)
   const occupy_freeMachine = (text, slug) => {
-    // console.log(text, slug);
     if (text === 'Занять станок') {
       fetchMachines(slug, 'bind')
       getDowntime(localStorage.access, slug)
@@ -53,6 +51,7 @@ const Main = () => {
       if (response.ok) {
         // console.log(response);
         setStatus(!status)
+        setTaskBTN(false)
       }
       if (response.status === 403) {
         // console.log(response.status)
@@ -72,7 +71,7 @@ const Main = () => {
   //Получения причин простоя
   const getReasonsDowntime = async (tok, slug) => {
     // console.log(slug)
-    const url = `http://192.168.1.109:8000/machine/${slug}/online`
+    const url = `${process.env.REACT_APP_DOMAIN}/machine/${slug}/online`
     const tokens = JSON.stringify(tok)
     try {
       const response = await fetch(url, {
@@ -91,7 +90,6 @@ const Main = () => {
       }
       if (response.status === 200 || response.status === 201) {
         const data = await response.json()
-        // console.log(data);
         console.log(data.signals.Простой)
         setPlain(data.signals.Простой)
       }
@@ -101,9 +99,7 @@ const Main = () => {
   }
   // получения причин простоя
   const getDowntime = async (tok, slug) => {
-    // console.log(slug)
-    const url = `http://192.168.1.109:8000/tablet/machine/${slug}/idles`
-    // console.log(url)
+    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/idles`
     const tokens = JSON.stringify(tok)
     try {
       const response = await fetch(url, {
@@ -113,7 +109,6 @@ const Main = () => {
           Authorization: `Bearer ${tokens.replace(/"/g, '')}`,
         },
       })
-      // console.log(response)
       if (response.status === 404) {
         // setTaskBTN(false);
       }
@@ -123,7 +118,6 @@ const Main = () => {
       if (response.status === 200 || response.status === 201) {
         const data = await response.json()
         setDowntime([...data.idles])
-        console.log(data)
       }
     } catch (error) {
       console.error('Ошибка:', error)
@@ -131,7 +125,7 @@ const Main = () => {
   }
   useEffect(() => {
     const fetchDataMachine = async (event) => {
-      const url = 'http://192.168.1.109:8000/tablet/machines'
+      const url = `${process.env.REACT_APP_DOMAIN}/tablet/machines`
       const tokens = JSON.stringify(event)
       try {
         const response = await fetch(url, {
@@ -141,13 +135,11 @@ const Main = () => {
             Authorization: `Bearer ${tokens.replace(/"/g, '')}`,
           },
         })
-        // console.log(response.status)
         if (response.status === 401) {
           navigate('/')
         }
         if (response.status === 200) {
           const data = await response.json()
-          // console.log('Получение станков', response)
           setArrMachines(data.machines)
         }
       } catch (error) {

@@ -3,7 +3,7 @@ import s from './Login_Page.module.css'
 import { useNavigate } from 'react-router-dom'
 import { Html5Qrcode } from 'html5-qrcode'
 
-import { Button, Checkbox, Form, Input } from 'antd'
+import { Button, Input, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { ReactComponent as Qr } from '../../image/bx_qr.svg'
 import { ReactComponent as ShkSVG } from '../../image/shk.svg'
@@ -20,8 +20,14 @@ const Login_Page = () => {
   const [isEnabled, setIsEnabled] = useState(false)
   const [qrMessage, setQrMessage] = useState('')
   const formRef = useRef(null)
-  const input1 = useRef(null)
 
+  const [messageApi, contextHolder] = message.useMessage()
+  const loginError = (text) => {
+    messageApi.open({
+      type: 'error',
+      content: text,
+    })
+  }
   const handleSubmit = async (event) => {
     // console.log(formRef.current)
     console.log(user)
@@ -31,7 +37,7 @@ const Login_Page = () => {
     const formData = new FormData(formRef.current)
     console.log(new FormData(formRef.current))
     try {
-      const response = await fetch('http://192.168.1.109:8000/login', {
+      const response = await fetch(`${process.env.REACT_APP_DOMAIN}/login`, {
         method: 'POST',
         body: formData,
       })
@@ -44,19 +50,31 @@ const Login_Page = () => {
         localStorage.setItem('user', user)
         navigate('/main')
       }
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 422) {
         setError(true)
         setUser()
         setPass()
         setDisQR(false)
         setBtnQR(false)
         setIsEnabled(false)
-        console.log('error', response.status)
+        loginError(response.status)
+      }
+      if (!response.ok) {
+        throw new Error('Сетевой запрос не удался')
       }
     } catch (error) {
       setDisQR(false)
       console.log(error)
-      error === '' ? alert('Ошибка:', error) : alert('ERR_CONNECTION_TIMED_OUT')
+      error === ''
+        ? alert('Ошибка:', error)
+        : loginError('ERR_CONNECTION_TIMED_OUT')
+      // setError(true)
+      setUser()
+      setPass()
+      setDisQR(false)
+      setBtnQR(false)
+      setIsEnabled(false)
+      loginError('Ошибка')
     }
   }
 

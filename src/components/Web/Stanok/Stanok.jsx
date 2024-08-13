@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import s from './Stanok.module.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Button, Pagination, Modal } from 'antd'
+import { Html5Qrcode } from 'html5-qrcode'
+import { Button, Pagination, Modal, message } from 'antd'
 import {
   ArrowLeftOutlined,
   FileTextOutlined,
@@ -33,12 +34,17 @@ const Stanok = ({
   const navigate = useNavigate()
   const [current, setCurrent] = useState('')
   const [defective, setDefective] = useState(0)
-  // console.log(downtime)
-  console.log(plain, 'PLAIN')
-  // console.log(taskBTN, "task");
-  // console.log(cont, "cont");
-  // console.log(arrMachines);
-
+  const [pageNumber, setPageNumber] = useState(1)
+  const [sliceNumber, setSliceNumber] = useState(0, 6)
+  const [qrMessage, setQrMessage] = useState('')
+  const [isEnabled, setIsEnabled] = useState(false)
+  const [messageApi, contextHolder] = message.useMessage()
+  const stanokError = (text) => {
+    messageApi.open({
+      type: 'error',
+      content: text,
+    })
+  }
   // MODAL
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isModalOpen2, setIsModalOpen2] = useState(false)
@@ -50,13 +56,16 @@ const Stanok = ({
   }
 
   // Создать задачу
-  const createTask = async (tok, slug) => {
-    const url = `http://192.168.1.109:8000/tablet/machine/${slug}/create_work`
-    console.log(url)
+  const createTask = async (tok, slug, res) => {
+    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/create_work`
     const tokens = JSON.stringify(tok)
+    // let work2 = JSON.stringify({
+    //   target: '50',
+    //   content: 'Работа',
+    // })
     let work = JSON.stringify({
-      target: '50',
-      content: 'Работа',
+      target: String(res.data.target),
+      content: res.data.content,
     })
     try {
       const response = await fetch(url, {
@@ -67,8 +76,10 @@ const Stanok = ({
         },
         body: work,
       })
-      // console.log(response.json())
-      // console.log(response)
+      if (!response.ok) {
+        setIsEnabled(!isEnabled)
+        stanokError('Сетевой запрос не удался')
+      }
       if (response.status === 401) {
         navigate('/')
       }
@@ -84,19 +95,17 @@ const Stanok = ({
         // console.log('Получение станков', response)
         // setArrMachines(data.machines)
         setTaskBTN(true)
+        setIsEnabled(!isEnabled)
       }
     } catch (error) {
       console.error('Ошибка:', error)
+      setIsEnabled(!isEnabled)
+      stanokError(error)
     }
   }
   //Обновить данные задания
   const updateTask = async (slug, current, defective) => {
-    const url = `http://192.168.1.109:8000/tablet/machine/${slug}/work`
-
-    console.log(url)
-    console.log(current, 'выполнено')
-    console.log(defective, 'Брак')
-
+    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/work`
     try {
       const response = await fetch(url, {
         method: 'PATCH',
@@ -111,14 +120,11 @@ const Stanok = ({
           defective: defective,
         }),
       })
-      // console.log(response.json())
-      // console.log(response)
       if (response.status === 401) {
         navigate('/')
       }
       if (response.status === 200 || response.status === 201) {
         const datas = await response.json()
-        console.log(datas)
         setCont({
           cont: datas.content,
           cur: datas.current,
@@ -135,11 +141,10 @@ const Stanok = ({
   }
   //!новая причина простоя
   const newReasonDowntime = async (id) => {
-    console.log()
-    const url = `http://192.168.1.109:8000/tablet/machine/${
+    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${
       arrMachines.filter((el) => el.id === elemStanok)[0].slug
     }/idle`
-    // console.log(url)
+    // const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${id}/idle`
     const tokens = JSON.stringify(localStorage.access)
     const work = JSON.stringify({
       code: id,
@@ -153,31 +158,27 @@ const Stanok = ({
         },
         body: work,
       })
-      // console.log(response.json())
-      console.log(response)
       if (response.status === 401) {
         navigate('/')
       }
       if (response.status === 200 || response.status === 201) {
-        // console.log(response)
         getReasonsDowntime(
           localStorage.access,
           arrMachines.filter((el) => el.id === elemStanok)[0].slug
         )
-        // const datas = await response.json()
-        // console.log(datas)
       }
     } catch (error) {
       console.error('Ошибка:', error)
     }
   }
+  //Пагинация
+  const paginationOnchange = (pageNumber) => {
+    setPageNumber(pageNumber)
+  }
   useEffect(() => {
-    // console.log(taskBTN);
     //Получить текущее задание
     const getWork = async (tok, slug) => {
-      // console.log(slug)
-      const url = `http://192.168.1.109:8000/tablet/machine/${slug}/work`
-      // console.log(url)
+      const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/work`
       const tokens = JSON.stringify(tok)
       try {
         const response = await fetch(url, {
@@ -187,7 +188,6 @@ const Stanok = ({
             Authorization: `Bearer ${tokens.replace(/"/g, '')}`,
           },
         })
-        // console.log(response)
         if (response.status === 404) {
           setTaskBTN(false)
         }
@@ -196,7 +196,6 @@ const Stanok = ({
         }
         if (response.status === 200 || response.status === 201) {
           const data = await response.json()
-          // console.log(data)
           setCont({
             cont: data.content,
             cur: data.current,
@@ -220,6 +219,41 @@ const Stanok = ({
       arrMachines.filter((el) => el.id === elemStanok)[0].slug
     )
   }, [])
+  useEffect(() => {
+    const config = { fps: 10, qrbox: { width: 200, height: 200 } }
+    const html5QrCode = new Html5Qrcode('qrCodeContainer')
+    const qrScanerStop = () => {
+      if (html5QrCode && html5QrCode.isScanning) {
+        html5QrCode
+          .stop()
+          .then(() => {
+            console.log('Scaner stop')
+            // handleSubmit()
+          })
+          .catch(() => console.log('Scaner error'))
+      }
+    }
+    const qrCodeSuccess = (decodedText) => {
+      const res = JSON.parse(decodedText)
+
+      // console.log(res)
+      createTask(
+        localStorage.access,
+        arrMachines.filter((el) => el.id === elemStanok)[0].slug,
+        res
+      )
+    }
+
+    if (isEnabled) {
+      html5QrCode.start({ facingMode: 'environment' }, config, qrCodeSuccess)
+      setQrMessage('')
+    } else {
+      qrScanerStop()
+    }
+    return () => {
+      qrScanerStop()
+    }
+  }, [isEnabled])
   return (
     <div className={s.main}>
       <div className={s.hedMain}>
@@ -275,7 +309,7 @@ const Stanok = ({
                   e.target.textContent,
                   arrMachines.filter((el) => el.id === elemStanok)[0].slug
                 )
-                setTaskBTN(false)
+                // setTaskBTN(false)
               }}
               id="sendBTN"
               className={`${s.btnCardSt} ${
@@ -294,9 +328,21 @@ const Stanok = ({
         </div>
         <div className={s.taskMain}>
           <span className="fontSt_foure">Задание </span>
+          <div className={isEnabled ? s.qrDivShow : s.qrDivNone}>
+            <div
+              id="qrCodeContainer"
+              // style={{ height: isEnabled ? '340px' : 0 }}
+            ></div>
+            <Button
+              style={{ background: 'red' }}
+              onClick={() => setIsEnabled(!isEnabled)}
+            >
+              X
+            </Button>
+          </div>
           <div className={s.btnsNaz}>
-            {!taskBTN ? (
-              <>
+            {!isEnabled && !taskBTN && (
+              <div className={s.btnTaskQR}>
                 <Button
                   disabled={
                     arrMachines.filter((el) => el.id === elemStanok)[0]
@@ -306,14 +352,13 @@ const Stanok = ({
                   }
                   className={s.btnCardM}
                   onClick={(e) => {
-                    createTask(
-                      localStorage.access,
-                      arrMachines.filter((el) => el.id === elemStanok)[0].slug
-                    )
+                    setIsEnabled(!isEnabled)
                   }}
                 >
-                  <Qr /> <span className="fontSt_One1">Назначить по QR</span>
+                  <Qr style={{ fill: 'rgb(0, 120, 210)' }} />{' '}
+                  <span className="fontSt_One1">Назначить по QR</span>
                 </Button>
+
                 <Button
                   className={s.btnCardM}
                   disabled={
@@ -326,8 +371,9 @@ const Stanok = ({
                   <ShkSVG />{' '}
                   <span className="fontSt_One1">Назначить по ШК</span>
                 </Button>
-              </>
-            ) : (
+              </div>
+            )}
+            {taskBTN && (
               <div className={s.taskOut}>
                 <div className={s.grupTask}>
                   <span className="fontSt_foure" style={{ fontSize: '24px' }}>
@@ -456,7 +502,7 @@ const Stanok = ({
                             arrMachines.filter((el) => el.id === elemStanok)[0]
                               .slug
                           )
-                          setTaskBTN(false)
+                          // setTaskBTN(false)
                           setIsModalOpen2(false)
                         }}
                       >
@@ -482,45 +528,65 @@ const Stanok = ({
               </div>
             )}
           </div>
-          <div className={s.task2Main}>
-            <div className={s.tsNav}>
-              <span className="fontSt_foure">Причина простоя</span>
-              <Pagination simple defaultCurrent={1} total={50} />
+          {!isEnabled && (
+            <div className={s.task2Main}>
+              <div className={s.tsNav}>
+                <span className="fontSt_foure">Причина простоя</span>
+                <Pagination
+                  simple
+                  defaultCurrent={1}
+                  total={30}
+                  onChange={paginationOnchange}
+                />
+              </div>
+              <div className={s.flebx}>
+                {downtime
+                  ?.filter((el, i) =>
+                    pageNumber === 1
+                      ? i < 6
+                      : pageNumber === 2
+                      ? i > 5 && i < 12
+                      : pageNumber === 3
+                      ? i > 11 && i < 18
+                      : i > 1
+                  )
+                  .map((el, i) => {
+                    // console.log(el.name)
+                    // console.log(plain)
+                    return (
+                      <Button
+                        // disabled={
+                        // plain === el.name ||
+                        // plain === null ||
+                        // plain === undefined ||
+                        // arrMachines.filter((el) => el.id === elemStanok)[0]
+                        //   .user_bind
+                        //   ? false
+                        //   : true
+                        // }
+                        key={i}
+                        id={el.code}
+                        onClick={(e) => {
+                          console.log(plain, 'plain')
+                          console.log(e.target.id, 'id')
+                          // newReasonDowntime(plain ? null : e.target.id)
+                          newReasonDowntime(e.target.id)
+                        }}
+                        className={s.dvFl}
+                        style={{
+                          background:
+                            plain === el.name ? 'lightgreen' : 'transparent',
+                        }}
+                      >
+                        <span className="fontSt_six" id={el.code}>
+                          {el.name}
+                        </span>
+                      </Button>
+                    )
+                  })}
+              </div>
             </div>
-            <div className={s.flebx}>
-              {downtime?.map((el, i) => {
-                return (
-                  <Button
-                    disabled={
-                      plain === el.name ||
-                      plain === null ||
-                      plain === undefined ||
-                      arrMachines.filter((el) => el.id === elemStanok)[0]
-                        .user_bind
-                        ? false
-                        : true
-                    }
-                    key={i}
-                    id={el.code}
-                    onClick={(e) => {
-                      console.log(plain, 'plain')
-                      console.log(e.target.id, 'id')
-                      newReasonDowntime(plain ? null : e.target.id)
-                    }}
-                    className={s.dvFl}
-                    style={{
-                      background:
-                        plain === el.name ? 'lightgreen' : 'transparent',
-                    }}
-                  >
-                    <span className="fontSt_six" id={el.code}>
-                      {el.name}
-                    </span>
-                  </Button>
-                )
-              })}
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

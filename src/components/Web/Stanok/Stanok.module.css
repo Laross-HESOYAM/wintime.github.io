@@ -268,3 +268,25 @@
 
     /* text-align: right; */
 }
+
+.qrDivShow {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.qrDivNone {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.btnTaskQR {
+    display: flex;
+    /* justify-content: space-between; */
+    column-gap: 20px;
+
+}

@@ -17,13 +17,13 @@ const Cards_Stanki = ({
 }) => {
   const [selectArr, setSelectArr] = useState(arrMachines)
   const onChange = (value) => {
-    console.log(`selected ${value}`)
+    // console.log(`selected ${value}`)
     if (value !== 'all') {
       // setNewArr(selectArr.filter((el) => el.id === value))
     }
   }
   const onSearch = (value) => {
-    console.log('search:', value)
+    // console.log('search:', value)
   }
   const filterOption = (input, option) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())

@@ -10,7 +10,6 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Login_Page />}></Route>
           <Route path="main" element={<Main />}></Route>
-          {/* <Route path="main/stanok" element={<Stanok />}></Route> */}
         </Routes>
       </AuthProvider>
     </BrowserRouter>
