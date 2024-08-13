@@ -38,7 +38,7 @@ const Main = () => {
     const tokens = JSON.stringify(localStorage.access)
     try {
       const response = await fetch(
-        `http://192.168.1.109:8000/tablet/machine/${slug}/${bind}`,
+        `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/${bind}/`,
         {
           method: 'POST',
           headers: {
@@ -71,7 +71,7 @@ const Main = () => {
   //Получения причин простоя
   const getReasonsDowntime = async (tok, slug) => {
     // console.log(slug)
-    const url = `${process.env.REACT_APP_DOMAIN}/machine/${slug}/online`
+    const url = `${process.env.REACT_APP_DOMAIN}/machine/${slug}/online/`
     const tokens = JSON.stringify(tok)
     try {
       const response = await fetch(url, {
@@ -99,7 +99,7 @@ const Main = () => {
   }
   // получения причин простоя
   const getDowntime = async (tok, slug) => {
-    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/idles`
+    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/idles/`
     const tokens = JSON.stringify(tok)
     try {
       const response = await fetch(url, {
@@ -125,7 +125,7 @@ const Main = () => {
   }
   useEffect(() => {
     const fetchDataMachine = async (event) => {
-      const url = `${process.env.REACT_APP_DOMAIN}/tablet/machines`
+      const url = `${process.env.REACT_APP_DOMAIN}/tablet/machines/`
       const tokens = JSON.stringify(event)
       try {
         const response = await fetch(url, {

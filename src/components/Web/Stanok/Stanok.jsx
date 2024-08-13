@@ -57,7 +57,7 @@ const Stanok = ({
 
   // Создать задачу
   const createTask = async (tok, slug, res) => {
-    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/create_work`
+    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/create_work/`
     const tokens = JSON.stringify(tok)
     // let work2 = JSON.stringify({
     //   target: '50',
@@ -105,7 +105,7 @@ const Stanok = ({
   }
   //Обновить данные задания
   const updateTask = async (slug, current, defective) => {
-    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/work`
+    const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/work/`
     try {
       const response = await fetch(url, {
         method: 'PATCH',
@@ -143,7 +143,7 @@ const Stanok = ({
   const newReasonDowntime = async (id) => {
     const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${
       arrMachines.filter((el) => el.id === elemStanok)[0].slug
-    }/idle`
+    }/idle/`
     // const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${id}/idle`
     const tokens = JSON.stringify(localStorage.access)
     const work = JSON.stringify({
@@ -178,7 +178,7 @@ const Stanok = ({
   useEffect(() => {
     //Получить текущее задание
     const getWork = async (tok, slug) => {
-      const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/work`
+      const url = `${process.env.REACT_APP_DOMAIN}/tablet/machine/${slug}/work/`
       const tokens = JSON.stringify(tok)
       try {
         const response = await fetch(url, {

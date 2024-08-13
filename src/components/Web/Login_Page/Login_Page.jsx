@@ -37,7 +37,7 @@ const Login_Page = () => {
     const formData = new FormData(formRef.current)
     console.log(new FormData(formRef.current))
     try {
-      const response = await fetch(`${process.env.REACT_APP_DOMAIN}/login`, {
+      const response = await fetch(`${process.env.REACT_APP_DOMAIN}/login/`, {
         method: 'POST',
         body: formData,
       })
